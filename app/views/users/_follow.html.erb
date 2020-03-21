@@ -1,0 +1,9 @@
+<br />
+
+<% if current_user.present? %>
+  <% if current_user.user_following?(current_user.id, user) %>
+    <%= button_to "Unfollow", unfollow_user_path(user.id), method: :post, remote: true %>
+  <% else %>
+    <%= button_to "Follow", follow_user_path(user.id), method: :post, remote: true %>
+  <% end %>
+<% end %>
