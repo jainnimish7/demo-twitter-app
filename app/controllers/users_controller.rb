@@ -7,13 +7,14 @@ class UsersController < ApplicationController
     @all_tweets = Tweet.where("user_id IN (?)", user_ids)
   end
 
+  # User details for followers and following
   def show
-    fetch_user
     @user_detail = {}
     @user_detail['following_count'] = current_user.following.count
     @user_detail['followers_count'] = current_user.followers.count
   end
 
+  # Create followers
   def follow
     current_user.following.create(follower_id: current_user.id, user_id: @user.id)
     respond_to do |format|
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # Unfollow user
   def unfollow
     current_user.following.find_by(user_id: @user.id).destroy if (current_user.following.find_by(user_id: @user.id))
   end
